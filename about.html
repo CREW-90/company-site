@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | CREW-90</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for modern UI icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font: Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* 1. Custom Scrollbar for Dark Theme */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #0066ff; /* Deep Tech Blue */
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #32ff80; /* Neon Green */
+      }
+
+      /* 2. Apply Inter Font Globally and Black Background */
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #000000;
+      }
+
+      /* 3. Custom Glow for Cards (Simulating Futuristic Border) */
+      .card-glow {
+        box-shadow: 0 0 10px rgba(50, 255, 128, 0.3),
+          /* Neon Green Shadow */ 0 0 20px rgba(0, 102, 255, 0.2); /* Tech Blue Shadow */
+        transition: all 0.3s ease-in-out;
+        border: 1px solid rgba(50, 255, 128, 0.1);
+      }
+      .card-glow:hover {
+        box-shadow: 0 0 20px rgba(50, 255, 128, 0.5),
+          0 0 30px rgba(0, 102, 255, 0.4);
+        transform: translateY(-5px);
+        border-color: #32ff80;
+      }
+
+      /* Team Scroll Styles */
+      .team-scroll-track {
+        display: flex;
+        padding: 1rem 0; /* Vertical padding */
+        overflow-x: scroll; /* Allows manual horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* Improved momentum scrolling on touch devices */
+        scrollbar-width: none; /* Hide scrollbar for Firefox */
+        overscroll-behavior-x: contain; /* Prevents body scrolling when edge reached */
+      }
+      .team-scroll-track::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome/Safari */
+      }
+      .team-member-card {
+        width: 240px; /* Fixed width for card */
+        flex-shrink: 0;
+        margin-right: 2rem; /* Gap between cards */
+      }
+    </style>
+
+    <script>
+      // Tailwind Configuration for Custom Colors
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "neon-green": "#32FF80",
+              "tech-blue": "#0066FF",
+              "dark-bg": "#000000",
+              "card-bg": "rgba(18, 18, 18, 0.8)",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="text-white antialiased">
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm shadow-lg shadow-black/30"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20"
+      >
+        <!-- Logo -->
+        <a
+          href="index.html"
+          class="text-2xl font-extrabold tracking-tight flex items-center space-x-2"
+        >
+          <img
+            src="assets/images/crew-90_logo.png"
+            alt="Crew-90 Logo"
+            class="h-[100px] w-auto sm:h-[130px] transition-transform duration-300 hover:scale-105"
+          />
+        </a>
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="about.html" class="text-neon-green transition duration-300"
+            >About</a
+          >
+          <a
+            href="index.html#services"
+            class="text-gray-300 hover:text-neon-green transition duration-300"
+            >Services</a
+          >
+          <a
+            href="index.html#projects"
+            class="text-gray-300 hover:text-neon-green transition duration-300"
+            >Projects</a
+          >
+          <a
+            href="#contact-page"
+            class="px-4 py-2 bg-tech-blue/20 text-tech-blue rounded-full border border-tech-blue hover:bg-tech-blue/50 hover:text-white transition duration-300"
+            >Contact</a
+          >
+        </nav>
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-button"
+          class="md:hidden text-white p-2 rounded-lg hover:bg-gray-800 transition duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-menu"
+          >
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Container -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-dark-bg/95 shadow-xl border-t border-gray-800 absolute w-full z-40"
+      >
+        <nav class="flex flex-col space-y-3 p-4">
+          <a
+            href="about.html"
+            class="text-neon-green p-2 rounded-lg transition duration-300"
+            >About</a
+          >
+          <a
+            href="index.html#services"
+            class="text-gray-300 hover:text-neon-green p-2 rounded-lg transition duration-300"
+            >Services</a
+          >
+          <a
+            href="index.html#projects"
+            class="text-gray-300 hover:text-neon-green p-2 rounded-lg transition duration-300"
+            >Projects</a
+          >
+          <a
+            href="#contact-page"
+            class="text-center px-4 py-2 bg-tech-blue text-white rounded-lg transition duration-300"
+            >Contact</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1. Hero / Core About Section -->
+      <section
+        class="pt-24 pb-16 md:pt-32 md:pb-24 px-4 border-t border-gray-900/50 bg-gray-900/10"
+      >
+        <div class="max-w-6xl mx-auto space-y-12">
+          <div class="text-center">
+            <span
+              class="text-tech-blue uppercase tracking-widest text-sm font-semibold"
+              >Our Story</span
+            >
+            <h1 class="text-5xl md:text-7xl font-extrabold mt-3 mb-6">
+              The <span class="text-neon-green">CREW-90</span> Collective
+            </h1>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 class="text-3xl font-bold mb-4 text-white">
+                Our Vision and Mission
+              </h2>
+              <p class="text-lg text-gray-300 space-y-4">
+                CREW-90 is a collective of visionary engineers and designers
+                dedicated to bridging the gap between hardware capabilities and
+                software intelligence. We specialize in creating bespoke,
+                high-performance solutions that simplify complex operational
+                challenges across heavy industry, manufacturing, and logistics.
+                Our commitment is to deliver technology that doesn't just meet
+                current needs but anticipates future demands.
+              </p>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold mb-4 text-white">
+                Engineering Excellence
+              </h2>
+              <p class="text-lg text-gray-300 space-y-4">
+                Our focus on reliability, scalable architecture, and
+                user-centric design ensures that our software is not just
+                powerful, but a seamless extension of your operations,
+                future-proofing your business for the next decade of digital
+                transformation. We prioritize secure, robust, and maintainable
+                code in every project we undertake.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Team Section (Animated & Manual Scroll) -->
+      <section
+        id="team"
+        class="py-16 md:py-24 px-4 border-t border-gray-900/50"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-10">
+            <span
+              class="text-neon-green uppercase tracking-widest text-sm font-semibold"
+              >The Crew</span
+            >
+            <h3 class="text-4xl font-extrabold mt-2">
+              Meet the <span class="text-tech-blue">CREW-90 Team</span>
+            </h3>
+            <p class="text-gray-400 mt-2">
+              Hover or swipe to manually control the list.
+            </p>
+          </div>
+
+          <!-- Infinite Scroll Container -->
+          <!-- overflow-x-scroll allows manual swiping/scrolling -->
+          <div
+            id="team-scroll-container"
+            class="team-scroll-track relative overflow-x-scroll cursor-grab"
+          >
+            <!-- TEAM MEMBERS (11 Placeholders) -->
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-tech-blue/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-tech-blue"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Kai Ren</p>
+              <p class="text-xs text-neon-green">Chief Architect</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-neon-green/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-neon-green"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Elara Vance</p>
+              <p class="text-xs text-tech-blue">Lead Developer</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-tech-blue/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-tech-blue"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Jaxon Miles</p>
+              <p class="text-xs text-neon-green">Systems Engineer</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-neon-green/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-neon-green"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Maya Solo</p>
+              <p class="text-xs text-tech-blue">UI/UX Designer</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-tech-blue/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-tech-blue"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Cyrus Wren</p>
+              <p class="text-xs text-neon-green">Security Analyst</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-neon-green/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-neon-green"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Anya Lee</p>
+              <p class="text-xs text-tech-blue">Data Scientist</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-tech-blue/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-tech-blue"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Omar Kade</p>
+              <p class="text-xs text-neon-green">Cloud Specialist</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-neon-green/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-neon-green"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Sara Lira</p>
+              <p class="text-xs text-tech-blue">QA Manager</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-tech-blue/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-tech-blue"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Ben Clark</p>
+              <p class="text-xs text-neon-green">Solution Architect</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-neon-green/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-neon-green"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Chloe Finch</p>
+              <p class="text-xs text-tech-blue">Product Owner</p>
+            </div>
+            <div
+              class="team-member-card text-center p-6 bg-gray-900/50 rounded-xl card-glow border border-tech-blue/20"
+            >
+              <div
+                class="w-24 h-24 bg-tech-blue/20 rounded-full mx-auto mb-3 flex items-center justify-center text-3xl font-bold text-tech-blue"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-user-circle"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="font-bold text-white">Eleven V.P.</p>
+              <p class="text-xs text-neon-green">Head of Strategy</p>
+            </div>
+            <!-- Filler cards to prevent scroll from stopping abruptly at the end -->
+            <div class="team-member-card w-12 flex-shrink-0"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Gallery Section -->
+      <section
+        id="gallery-page"
+        class="py-16 md:py-24 px-4 border-t border-gray-900/50 bg-gray-900/10"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-16">
+            <span
+              class="text-tech-blue uppercase tracking-widest text-sm font-semibold"
+              >Workspace</span
+            >
+            <h2 class="text-4xl md:text-5xl font-extrabold mt-3">
+              Our <span class="text-neon-green">Digital HQ</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <!-- Gallery Item 1 -->
+            <div
+              class="aspect-video bg-gray-800 rounded-lg overflow-hidden border border-neon-green/20 group hover:border-neon-green transition duration-300"
+            >
+              <span
+                class="flex items-center justify-center h-full text-gray-400 text-sm group-hover:text-neon-green"
+                >Code Interface</span
+              >
+            </div>
+            <!-- Gallery Item 2 -->
+            <div
+              class="aspect-square bg-gray-800 rounded-lg overflow-hidden border border-tech-blue/20 group hover:border-tech-blue transition duration-300"
+            >
+              <span
+                class="flex items-center justify-center h-full text-gray-400 text-sm group-hover:text-tech-blue"
+                >Server Farm</span
+              >
+            </div>
+            <!-- Gallery Item 3 -->
+            <div
+              class="aspect-video bg-gray-800 rounded-lg overflow-hidden border border-neon-green/20 group hover:border-neon-green transition duration-300"
+            >
+              <span
+                class="flex items-center justify-center h-full text-gray-400 text-sm group-hover:text-neon-green"
+                >Design Mockup</span
+              >
+            </div>
+            <!-- Gallery Item 4 -->
+            <div
+              class="aspect-square bg-gray-800 rounded-lg overflow-hidden border border-tech-blue/20 group hover:border-tech-blue transition duration-300"
+            >
+              <span
+                class="flex items-center justify-center h-full text-gray-400 text-sm group-hover:text-tech-blue"
+                >Team Meeting</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Dedicated Contact Section (Mirrors index.html contact form) -->
+      <section
+        id="contact-page"
+        class="py-16 md:py-24 px-4 border-t border-gray-900/50"
+      >
+        <div class="max-w-4xl mx-auto text-center">
+          <span
+            class="text-tech-blue uppercase tracking-widest text-sm font-semibold"
+            >Let's Connect</span
+          >
+          <h2 class="text-4xl md:text-5xl font-extrabold mt-3 mb-8">
+            Schedule a <span class="text-neon-green">Consultation</span>
+          </h2>
+          <p class="text-xl text-gray-400 mb-12">
+            Use the form below to initiate contact, or reach us directly via the
+            details in the footer.
+          </p>
+
+          <div
+            class="bg-card-bg/50 p-8 md:p-12 rounded-2xl border-2 border-tech-blue/20"
+          >
+            <form class="space-y-6 text-left">
+              <div>
+                <label
+                  for="name"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Your Name / Company</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-tech-blue/50 focus:border-neon-green focus:ring-1 focus:ring-neon-green/50 outline-none transition duration-200"
+                  placeholder="Acme Inc."
+                />
+              </div>
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Work Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-tech-blue/50 focus:border-neon-green focus:ring-1 focus:ring-neon-green/50 outline-none transition duration-200"
+                  placeholder="contact@acme.com"
+                />
+              </div>
+              <div>
+                <label
+                  for="message"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >How Can CREW-90 Help?</label
+                >
+                <textarea
+                  id="message"
+                  rows="4"
+                  class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-tech-blue/50 focus:border-neon-green focus:ring-1 focus:ring-neon-green/50 outline-none transition duration-200"
+                  placeholder="I need a bespoke automation tool for my manufacturing plant..."
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full py-4 text-lg font-bold rounded-xl bg-tech-blue text-white transition duration-300 hover:bg-tech-blue/80 hover:shadow-[0_0_20px_rgba(0,102,255,0.7)] shadow-tech-blue/50"
+              >
+                Send Request
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-gray-900/50 bg-gray-900/10">
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-sm"
+      >
+        <!-- Logo Column -->
+        <div class="col-span-2 md:col-span-1">
+          <a href="index.html" class="text-2xl font-extrabold tracking-tight">
+            <span class="text-white">CREW-</span
+            ><span class="text-neon-green">90</span>
+          </a>
+          <p class="text-gray-500 mt-2">
+            Engineering the digital infrastructure of tomorrow.
+          </p>
+        </div>
+        <!-- Links Column 1 -->
+        <div>
+          <h4 class="font-bold text-white mb-3">Company</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li>
+              <a
+                href="about.html"
+                class="hover:text-neon-green transition duration-200"
+                >About Us</a
+              >
+            </li>
+            <li>
+              <a
+                href="index.html#values"
+                class="hover:text-neon-green transition duration-200"
+                >Our Values</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-neon-green transition duration-200"
+                >Careers</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- Links Column 2 -->
+        <div>
+          <h4 class="font-bold text-white mb-3">Services</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li>
+              <a
+                href="index.html#services"
+                class="hover:text-neon-green transition duration-200"
+                >Custom Software</a
+              >
+            </li>
+            <li>
+              <a
+                href="index.html#services"
+                class="hover:text-neon-green transition duration-200"
+                >Automation</a
+              >
+            </li>
+            <li>
+              <a
+                href="index.html#services"
+                class="hover:text-neon-green transition duration-200"
+                >Mobile Apps</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- Contact Info -->
+        <div>
+          <h4 class="font-bold text-white mb-3">Connect</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li>
+              <a
+                href="#contact-page"
+                class="hover:text-neon-green transition duration-200"
+                >Get a Quote</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-neon-green transition duration-200"
+                >Press Kit</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-neon-green transition duration-200"
+                >info@crew90.com</a
+              >
+            </li>
+          </ul>
+          <!-- Social Media Links -->
+          <div class="mt-4 flex space-x-4">
+            <a
+              href="https://linkedin.com/company/crew-90"
+              target="_blank"
+              class="text-gray-400 hover:text-neon-green transition duration-300"
+              aria-label="LinkedIn"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-linkedin"
+              >
+                <path
+                  d="M16 8a6 6 0 0 0-6 6v7h-4v-7a6 6 0 0 1 6-6 6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2z"
+                />
+                <rect width="4" height="12" x="2" y="9" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="mt-12 pt-8 border-t border-gray-900/50 text-center text-gray-500 text-xs"
+      >
+        &copy; 2024 CREW-90. All Rights Reserved. | Designed with Unity and
+        Innovation.
+      </div>
+    </footer>
+
+    <script>
+      // --- Mobile Menu Toggle Logic (New) ---
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener("click", () => {
+          // Toggles the 'hidden' class to show/hide the menu
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        // Close menu when a link is clicked
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      }
+      // --- End Mobile Menu Toggle Logic ---
+
+      // --- JavaScript for Auto-Scroll and Manual Override (Existing) ---
+      let scrollInterval;
+
+      function autoScrollTeam() {
+        const container = document.getElementById("team-scroll-container");
+        if (!container) return;
+
+        // If the user has hovered/touched, the 'paused' class will be present.
+        if (container.classList.contains("scrolling-paused")) {
+          return;
+        }
+
+        const scrollDistance = 1; // Pixels per step (slower speed)
+        const maxScroll = container.scrollWidth - container.clientWidth;
+
+        container.scrollLeft += scrollDistance;
+
+        // Loop the scroll: Check if the scroll position is near the end
+        if (container.scrollLeft >= maxScroll - 5) {
+          // Instantly reset to start
+          container.scrollLeft = 0;
+        }
+      }
+
+      function setupScrollControls() {
+        const container = document.getElementById("team-scroll-container");
+        if (!container) return;
+
+        // Pause auto-scroll on mouse enter (desktop)
+        container.addEventListener("mouseenter", () =>
+          container.classList.add("scrolling-paused")
+        );
+        // Resume auto-scroll on mouse leave (desktop)
+        container.addEventListener("mouseleave", () =>
+          container.classList.remove("scrolling-paused")
+        );
+
+        // Pause on touch start (mobile)
+        container.addEventListener("touchstart", () =>
+          container.classList.add("scrolling-paused")
+        );
+        // Resume shortly after touch end (giving time for momentum scroll to finish)
+        container.addEventListener("touchend", () => {
+          setTimeout(() => {
+            container.classList.remove("scrolling-paused");
+          }, 500); // 500ms delay before resuming auto-scroll
+        });
+
+        // Start the continuous scrolling function
+        scrollInterval = setInterval(autoScrollTeam, 30); // Runs every 30ms (approx 33 times per second)
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        setupScrollControls();
+        lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>
