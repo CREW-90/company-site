@@ -1,0 +1,198 @@
+
+/* style.css - Enhanced responsive styles for full site with adjusted team card and mock device card heights */
+
+/* Base styles */
+body {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Fade-in utilities */
+.fade-in {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: fadeInUp 600ms ease forwards;
+}
+.fade-in.delay-100 { animation-delay: 100ms; }
+.fade-in.delay-200 { animation-delay: 200ms; }
+
+.hero-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Splash & loader */
+#splash {
+  z-index: 9999;
+}
+#loaderBar { width: 0%; }
+
+/* Focus ring for accessibility */
+:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,255,140,0.06);
+}
+
+/* Team carousel */
+#teamCarousel {
+  display: flex;
+  overflow-x: hidden;
+  gap: 1rem;
+  scroll-behavior: auto;
+}
+
+.team-card {
+  flex: 0 0 auto;
+  width: 11rem; /* ~176px, original w-44 */
+  min-height: 14rem; /* Reduced height for mobile */
+}
+
+/* Adjust team card height for mobile */
+@media (max-width: 639px) {
+  .team-card {
+    min-height: 12rem; /* Compact height on mobile (~192px) */
+  }
+}
+
+/* Restore original height for tablet and larger */
+@media (min-width: 640px) {
+  .team-card {
+    min-height: 16rem; /* Original height (~256px) */
+  }
+}
+
+.team-card img {
+  border: 2px solid rgba(255,255,255,0.06);
+}
+
+/* Mock device card */
+#hero .relative > div {
+  max-width: 100%; /* Prevent overflow */
+}
+@media (max-width: 639px) {
+  #hero .relative > div {
+    padding: 1rem; /* Smaller padding on mobile */
+  }
+  #hero .h-48 {
+    height: 12rem !important; /* Compact height for mobile (~192px) */
+  }
+}
+@media (min-width: 640px) {
+  #hero .h-48 {
+    height: 15rem; /* Original height (~240px) */
+  }
+}
+
+/* Gallery */
+.gallery-item { cursor: zoom-in; }
+
+/* Lightbox */
+#lightbox img {
+  max-width: 90vw;
+  max-height: 85vh;
+}
+
+/* Section animation */
+.section-anim {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+.section-anim.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero title */
+.hero-title {
+  line-height: 1.02;
+}
+
+/* Matrix background */
+#matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  #splash .text-2xl {
+    font-size: 1.5rem;
+  }
+  #splash .w-40 {
+    width: 32rem;
+  }
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  .max-w-3xl, .max-w-2xl, .max-w-xl {
+    max-width: 100%;
+  }
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .py-12 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  #hero {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-title {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .max-w-7xl {
+    max-width: 80rem;
+  }
+  .hero-title {
+    font-size: 4.5rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in, .section-anim {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,831 +1,429 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CREW-90</title>
-    <link rel="icon" sizes="64x64" type="image/x-icon" href="assets/images/crew-90_logo.png">
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons for modern UI icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Font: Inter -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CREW-90 — Innovating</title>
+  <meta name="description" content="CREW-90 — research-driven IT solutions" />
 
-    <style>
-      /* 1. Custom Scrollbar for Dark Theme */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #000000;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #0066ff; /* Deep Tech Blue */
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #32ff80; /* Neon Green */
-      }
-
-      /* 2. Apply Inter Font Globally and Black Background */
-      body {
-        font-family: "Inter", sans-serif;
-        background-color: #000000;
-      }
-
-      /* 3. Custom Glow for Cards (Simulating Futuristic Border) */
-      .card-glow {
-        box-shadow: 0 0 10px rgba(50, 255, 128, 0.3),
-          /* Neon Green Shadow */ 0 0 20px rgba(0, 102, 255, 0.2); /* Tech Blue Shadow */
-        transition: all 0.3s ease-in-out;
-        border: 1px solid rgba(50, 255, 128, 0.1);
-      }
-      .card-glow:hover {
-        box-shadow: 0 0 20px rgba(50, 255, 128, 0.5),
-          0 0 30px rgba(0, 102, 255, 0.4);
-        transform: translateY(-5px);
-        border-color: #32ff80;
-      }
-    </style>
-
-    <script>
-      // Tailwind Configuration for Custom Colors
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              "neon-green": "#32FF80",
-              "tech-blue": "#0066FF",
-              "dark-bg": "#000000",
-              "card-bg": "rgba(18, 18, 18, 0.8)",
-            },
+  <!-- Tailwind CDN + config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            crewgreen: "#00FF8C",
+            crewblue: "#007BFF",
+            crewdark: "#0b0b0b",
+            crewgray: "#0f1720"
           },
-        },
-      };
-    </script>
-  </head>
+          boxShadow: {
+            'neon-sm': '0 6px 30px rgba(0,255,140,0.06)'
+          }
+        }
+      }
+    }
+  </script>
 
-  <body class="text-white antialiased">
-    <!-- Header -->
-    <header
-      class="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm shadow-lg shadow-black/30"
-    >
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20"
-      >
-        <!-- Logo -->
-        <a
-          href="index.html"
-          class="text-2xl font-extrabold tracking-tight flex items-center space-x-2"
-        >
-          <img
-            src="assets/images/crew-90_logo.png"
-            alt="Crew-90 Logo"
-            class="h-[100px] w-auto sm:h-[130px] transition-transform duration-300 hover:scale-105"
-          />
-        </a>
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex space-x-8">
-          <!-- Link updated to external file -->
-          <a
-            href="about.html"
-            class="text-gray-300 hover:text-neon-green transition duration-300"
-            >About</a
-          >
-          <a
-            href="#services"
-            class="text-gray-300 hover:text-neon-green transition duration-300"
-            >Services</a
-          >
-          <a
-            href="#projects"
-            class="text-gray-300 hover:text-neon-green transition duration-300"
-            >Projects</a
-          >
-          <a
-            href="#contact"
-            class="px-4 py-2 bg-tech-blue/20 text-tech-blue rounded-full border border-tech-blue hover:bg-tech-blue/50 hover:text-white transition duration-300"
-            >Contact</a
-          >
-        </nav>
-        <!-- Mobile Menu Button -->
-        <button
-          id="mobile-menu-button"
-          class="md:hidden text-white p-2 rounded-lg hover:bg-gray-800 transition duration-200"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-menu"
-          >
-            <line x1="4" x2="20" y1="12" y2="12"></line>
-            <line x1="4" x2="20" y1="6" y2="6"></line>
-            <line x1="4" x2="20" y1="18" y2="18"></line>
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-crewdark text-white antialiased">
+  <canvas id="matrix-bg"></canvas>
+
+  <!-- Splash screen (auto disappear) -->
+  <div id="splash" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-black to-[#050606]">
+    <div class="text-center px-4">
+      <div class="inline-flex items-center gap-3 mb-4">
+        <img id="splashLogo" src="logo.png" onerror="this.style.display='none';" alt="CREW-90" class="w-16 sm:w-20 h-16 sm:h-20 rounded-lg shadow-lg"/>
+        <div id="splashSvg" class="hidden">
+          <div class="w-16 sm:w-20 h-16 sm:h-20 rounded-lg flex items-center justify-center bg-black/60 border border-white/8 shadow-lg mx-auto">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none">
+              <rect x="1.5" y="1.5" width="21" height="21" rx="5" stroke="currentColor" stroke-width="1" opacity="0.08"/>
+              <path d="M4 17L10 7L14 17L20 7" stroke="#00FF8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text-left">
+          <div class="text-2xl sm:text-3xl font-bold tracking-tight">CREW-90</div>
+          <div class="text-xs sm:text-sm text-gray-300">Research-driven IT solutions</div>
+        </div>
+      </div>
+      <div class="mt-3">
+        <div class="loader h-1 w-40 sm:w-48 bg-white/6 rounded-full overflow-hidden">
+          <div id="loaderBar" class="h-full bg-crewgreen w-0 rounded-full transition-all"></div>
+        </div>
+        <div class="text-xs text-gray-400 mt-3">Innovating — starting up the experience...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skip link -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white/5 px-3 py-2 rounded text-sm">Skip to content</a>
+
+  <!-- Header / Navbar -->
+  <header class="w-full sticky top-0 z-40 bg-black/60 backdrop-blur border-b border-white/6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md flex items-center justify-center bg-gradient-to-br from-crewgreen/10 to-crewblue/8 border border-white/6">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-white">
+            <rect x="1" y="1" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1" opacity="0.12"/>
+            <path d="M4 17L10 7L14 17L20 7" stroke="#00FF8C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
+        </div>
+        <span class="font-semibold tracking-wide text-sm sm:text-base">CREW-90</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 lg:gap-8">
+        <a href="#hero" class="nav-link text-sm hover:text-crewgreen transition">Home</a>
+        <a href="#about" class="nav-link text-sm hover:text-crewgreen transition">About</a>
+        <a href="#services" class="nav-link text-sm hover:text-crewblue transition">Services</a>
+        <a href="#cases" class="nav-link text-sm hover:text-white transition">Research</a>
+        <a href="#team" class="nav-link text-sm hover:text-crewgreen transition">Team</a>
+        <a href="#gallery" class="nav-link text-sm hover:text-crewblue transition">Gallery</a>
+        <a href="#contact" class="nav-link text-sm hover:text-crewgreen transition">Contact</a>
+        <button id="particle-toggle" class="text-sm hover:text-crewgreen transition">Particles: On</button>
+      </nav>
+      <div class="md:hidden">
+        <button id="mobileToggle" aria-label="Open menu" class="p-2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
       </div>
-
-      <!-- Mobile Menu Container -->
-      <div
-        id="mobile-menu"
-        class="hidden md:hidden bg-dark-bg/95 shadow-xl border-t border-gray-800 absolute w-full z-40"
-      >
-        <nav class="flex flex-col space-y-3 p-4">
-          <a
-            href="about.html"
-            class="text-gray-300 hover:text-neon-green p-2 rounded-lg transition duration-300"
-            >About</a
-          >
-          <a
-            href="#services"
-            class="text-gray-300 hover:text-neon-green p-2 rounded-lg transition duration-300"
-            >Services</a
-          >
-          <a
-            href="#projects"
-            class="text-gray-300 hover:text-neon-green p-2 rounded-lg transition duration-300"
-            >Projects</a
-          >
-          <a
-            href="#contact"
-            class="text-center px-4 py-2 bg-tech-blue text-white rounded-lg transition duration-300"
-            >Contact</a
-          >
-        </nav>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/5 bg-black/70">
+      <div class="px-4 py-3 flex flex-col gap-2">
+        <a class="py-2 nav-link block rounded hover:bg-white/2 px-3 text-sm" href="#about">About</a>
+        <a class="py-2 nav-link block rounded hover:bg-white/2 px-3 text-sm" href="#services">Services</a>
+        <a class="py-2 nav-link block rounded hover:bg-white/2 px-3 text-sm" href="#cases">Research</a>
+        <a class="py-2 nav-link block rounded hover:bg-white/2 px-3 text-sm" href="#team">Team</a>
+        <a class="py-2 nav-link block rounded hover:bg-white/2 px-3 text-sm" href="#gallery">Gallery</a>
+        <a class="py-2 nav-link block rounded hover:bg-white/2 px-3 text-sm" href="#contact">Contact</a>
+        <button id="particle-toggle-mobile" class="py-2 block rounded hover:bg-white/2 px-3 text-sm text-left">Particles: On</button>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main>
-      <!-- 1. Hero Section -->
-      <section
-        id="home"
-        class="min-h-screen flex items-center justify-center text-center p-4 md:p-8 relative overflow-hidden"
-      >
-        <!-- Subtle background animation element -->
-        <div class="absolute inset-0 z-0 opacity-10">
-          <div
-            class="h-64 w-64 bg-tech-blue rounded-full absolute -top-16 -left-16 blur-3xl mix-blend-screen animate-pulse"
-          ></div>
-          <div
-            class="h-96 w-96 bg-neon-green rounded-full absolute -bottom-32 -right-32 blur-3xl mix-blend-screen animate-pulse animation-delay-500"
-          ></div>
-        </div>
-
-        <div class="max-w-4xl z-10">
-          <h1
-            class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight tracking-tighter"
-          >
-            Empowering Industries with
-            <span class="text-neon-green block sm:inline">Smart Software</span>
+  <!-- Main Content -->
+  <main id="main" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-[calc(100vh-var(--header-height))] flex items-center py-4 sm:py-12">
+      <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div class="flex flex-col gap-6 justify-center">
+          <h1 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+            Innovating <span class="text-crewgreen">real-world</span> tech solutions through research.
           </h1>
-          <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto">
-            We engineer reliable, cutting-edge technology solutions that drive
-            automation, efficiency, and growth for the modern industrial
-            landscape.
+          <p class="text-gray-300 text-sm sm:text-base max-w-xl">
+            CREW-90 focuses on rigorous research, practical engineering, and strong communication to design scalable, maintainable solutions.
           </p>
-          <a
-            href="#contact"
-            class="inline-flex items-center justify-center px-10 py-4 text-lg font-bold rounded-xl bg-neon-green text-dark-bg transition duration-300 hover:bg-white hover:shadow-[0_0_25px_rgba(50,255,128,0.7)] shadow-neon-green/50 transform hover:scale-105"
-          >
-            Get in Touch
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-arrow-right ml-2"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
+          <div class="flex flex-wrap gap-3 items-center">
+            <a href="#contact" class="inline-flex items-center gap-2 bg-crewgreen text-black px-4 sm:px-5 py-2 sm:py-3 rounded-md font-medium hover:brightness-95 transition shadow-sm">
+              Contact Us
+            </a>
+            <a href="#services" class="inline-flex items-center gap-2 border border-white/10 px-3 sm:px-4 py-2 sm:py-3 rounded-md text-sm hover:bg-white/2 transition">
+              Our Services
+            </a>
+          </div>
+          <div class="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-400">
+            <span class="inline-flex items-center gap-2"><strong class="text-crewgreen">Current:</strong> Research project — process automation & observability</span>
+          </div>
+        </div>
+        <div class="relative">
+          <!-- Mock device card -->
+          <div class="rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-white/2 to-white/3 border border-white/6 shadow-lg">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-xs sm:text-sm text-gray-200 font-medium">Research Dashboard (Preview)</div>
+              <div class="text-xs text-gray-400">Live demo coming soon</div>
+            </div>
+            <div class="h-48 sm:h-60 rounded-lg bg-black/70 p-4 grid grid-cols-2 gap-4">
+              <div class="bg-white/3 rounded p-3">
+                <div class="text-xs text-gray-300">Throughput</div>
+                <div class="text-lg sm:text-xl font-semibold mt-2">1,246 / hr</div>
+              </div>
+              <div class="bg-white/3 rounded p-3">
+                <div class="text-xs text-gray-300">Error Rate</div>
+                <div class="text-lg sm:text-xl font-semibold mt-2 text-crewgreen">0.8%</div>
+              </div>
+              <div class="col-span-2 mt-2 bg-white/3 rounded p-3">
+                <div class="text-xs text-gray-300">Recent Findings</div>
+                <ul class="mt-2 text-xs sm:text-sm text-gray-200 space-y-1">
+                  <li>Automating process X reduced latency by 42%</li>
+                  <li>Observability improved incident detection time by 60%</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-8 sm:py-12 section-anim">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold">About CREW-90</h2>
+        <p class="text-gray-300 text-sm sm:text-base max-w-3xl mt-2">
+          A compact team of researchers and engineers who document problems, design experiments, and deliver practical, maintainable solutions.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:scale-105 transition transform">
+          <div class="text-crewgreen text-2xl sm:text-3xl mb-3 font-semibold">Innovation</div>
+          <p class="text-gray-300 text-sm">We prototype creative approaches to reduce time-to-value.</p>
+        </div>
+        <div class="p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:scale-105 transition transform">
+          <div class="text-crewblue text-2xl sm:text-3xl mb-3 font-semibold">Technical Excellence</div>
+          <p class="text-gray-300 text-sm">Robust architecture, secure systems, and scalable code.</p>
+        </div>
+        <div class="p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:scale-105 transition transform">
+          <div class="text-white text-2xl sm:text-3xl mb-3 font-semibold">Transparency</div>
+          <p class="text-gray-300 text-sm">Clear communication, searchable documentation, and measurable results.</p>
+        </div>
+        <div class="p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:scale-105 transition transform">
+          <div class="text-crewgreen text-2xl sm:text-3xl mb-3 font-semibold">Out-of-the-box Thinking</div>
+          <p class="text-gray-300 text-sm">We apply cross-disciplinary methods to deliver unexpected efficiencies.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-8 sm:py-12 section-anim">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold">Services</h2>
+        <p class="text-gray-400 text-sm sm:text-base mt-2 max-w-2xl">From audits to full implementations — pick what you need or let us propose a tailored plan.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div class="service-card p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:translate-y-[-4px] transition transform">
+          <div class="flex items-center gap-3">
+            <svg class="w-6 sm:w-8 h-6 sm:h-8 text-crewgreen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6M9 16h6M11 8h2" /></svg>
+            <div>
+              <h3 class="text-base sm:text-lg font-semibold">Systems Audit</h3>
+              <p class="text-gray-300 text-sm mt-1">We map current systems, identify bottlenecks and risk, and provide prioritized remediation plans.</p>
+            </div>
+          </div>
+        </div>
+        <div class="service-card p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:translate-y-[-4px] transition transform">
+          <div class="flex items-center gap-3">
+            <svg class="w-6 sm:w-8 h-6 sm:h-8 text-crewblue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 12h18M3 17h18" /></svg>
+            <div>
+              <h3 class="text-base sm:text-lg font-semibold">Custom Software</h3>
+              <p class="text-gray-300 text-sm mt-1">User-focused web & mobile applications with maintainable architecture.</p>
+            </div>
+          </div>
+        </div>
+        <div class="service-card p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:translate-y-[-4px] transition transform">
+          <div class="flex items-center gap-3">
+            <svg class="w-6 sm:w-8 h-6 sm:h-8 text-crewgreen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c1.657 0 3-1.567 3-3.5S13.657 1 12 1 9 2.567 9 4.5 10.343 8 12 8zM2 20c0-5.333 8-8 10-8s10 2.667 10 8" /></svg>
+            <div>
+              <h3 class="text-base sm:text-lg font-semibold">Automation & Integration</h3>
+              <p class="text-gray-300 text-sm mt-1">Automate repetitive work with secure integrations and clear logging.</p>
+            </div>
+          </div>
+        </div>
+        <div class="service-card p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:translate-y-[-4px] transition transform">
+          <div class="flex items-center gap-3">
+            <svg class="w-6 sm:w-8 h-6 sm:h-8 text-crewblue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7l3-7z" /></svg>
+            <div>
+              <h3 class="text-base sm:text-lg font-semibold">Cloud & Ops</h3>
+              <p class="text-gray-300 text-sm mt-1">Cloud architecture, cost optimisation, and observability practices.</p>
+            </div>
+          </div>
+        </div>
+        <div class="service-card p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:translate-y-[-4px] transition transform">
+          <div class="flex items-center gap-3">
+            <svg class="w-6 sm:w-8 h-6 sm:h-8 text-crewgreen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6M9 16h6M11 8h2" /></svg>
+            <div>
+              <h3 class="text-base sm:text-lg font-semibold">Security Review</h3>
+              <p class="text-gray-300 text-sm mt-1">Find & fix common vectors; improve policies and monitoring.</p>
+            </div>
+          </div>
+        </div>
+        <div class="service-card p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:translate-y-[-4px] transition transform">
+          <div class="flex items-center gap-3">
+            <svg class="w-6 sm:w-8 h-6 sm:h-8 text-crewblue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 12h18M3 17h18" /></svg>
+            <div>
+              <h3 class="text-base sm:text-lg font-semibold">Training & Support</h3>
+              <p class="text-gray-300 text-sm mt-1">Team upskilling and ongoing maintenance contracts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Studies / Research -->
+    <section id="cases" class="py-8 sm:py-12 section-anim">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold">Research Projects</h2>
+        <p class="text-gray-400 text-sm sm:text-base mt-2 max-w-2xl">Problem → Approach → Result — real research examples showing impact.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <div class="p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:scale-[1.01] transition">
+          <h3 class="font-semibold text-base sm:text-lg">Problem: Manual Invoice Processing</h3>
+          <p class="text-gray-300 mt-2 text-sm">High error rates and long processing times.</p>
+          <hr class="my-3 border-white/6" />
+          <h4 class="text-sm font-medium text-crewblue">Solution</h4>
+          <p class="text-gray-300 text-sm">Built an automated pipeline that extracted invoice data and integrated it with the accounting system.</p>
+          <p class="mt-2 text-sm text-crewgreen font-semibold">Result: 70% time saved, 90% fewer errors</p>
+        </div>
+        <div class="p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6 hover:scale-[1.01] transition">
+          <h3 class="font-semibold text-base sm:text-lg">Problem: Unreliable Reporting</h3>
+          <p class="text-gray-300 mt-2 text-sm">Reports were inconsistent and delayed.</p>
+          <hr class="my-3 border-white/6" />
+          <h4 class="text-sm font-medium text-crewblue">Solution</h4>
+          <p class="text-gray-300 text-sm">Implemented ETL with validation rules and scheduled dashboards.</p>
+          <p class="mt-2 text-sm text-crewgreen font-semibold">Result: Real-time KPIs, trust across teams</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Carousel -->
+    <section id="team" class="py-8 sm:py-12 section-anim">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold">Team</h2>
+        <p class="text-gray-400 text-sm sm:text-base mt-2 max-w-2xl">A multidisciplinary team — researchers, developers, infra engineers, and project leads.</p>
+      </div>
+      <div class="relative overflow-hidden rounded-xl border border-white/6 bg-white/3 p-4">
+        <div id="teamCarousel" class="flex gap-4 whitespace-nowrap will-change-transform"></div>
+      </div>
+      <p class="text-xs text-gray-400 mt-3">Hover to pause the auto-scroll.</p>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-8 sm:py-12 section-anim">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold">Gallery</h2>
+        <p class="text-gray-400 text-sm sm:text-base mt-2 max-w-2xl">Project snapshots and research visuals (coming soon: full project gallery).</p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <button class="gallery-item group block rounded overflow-hidden" data-src="https://placehold.co/1200x900?text=Project+1" aria-label="View image 1">
+          <img loading="lazy" src="https://placehold.co/400x300?text=Project+1" class="w-full h-32 sm:h-40 object-cover transform group-hover:scale-105 transition" alt="Project 1" />
+        </button>
+        <button class="gallery-item group block rounded overflow-hidden" data-src="https://placehold.co/1200x900?text=Project+2" aria-label="View image 2">
+          <img loading="lazy" src="https://placehold.co/400x300?text=Project+2" class="w-full h-32 sm:h-40 object-cover transform group-hover:scale-105 transition" alt="Project 2" />
+        </button>
+        <button class="gallery-item group block rounded overflow-hidden" data-src="https://placehold.co/1200x900?text=Project+3" aria-label="View image 3">
+          <img loading="lazy" src="https://placehold.co/400x300?text=Project+3" class="w-full h-32 sm:h-40 object-cover transform group-hover:scale-105 transition" alt="Project 3" />
+        </button>
+        <button class="gallery-item group block rounded overflow-hidden" data-src="https://placehold.co/1200x900?text=Project+4" aria-label="View image 4">
+          <img loading="lazy" src="https://placehold.co/400x300?text=Project+4" class="w-full h-32 sm:h-40 object-cover transform group-hover:scale-105 transition" alt="Project 4" />
+        </button>
+        <button class="gallery-item group block rounded overflow-hidden" data-src="https://placehold.co/1200x900?text=Project+5" aria-label="View image 5">
+          <img loading="lazy" src="https://placehold.co/400x300?text=Project+5" class="w-full h-32 sm:h-40 object-cover transform group-hover:scale-105 transition" alt="Project 5" />
+        </button>
+        <button class="gallery-item group block rounded overflow-hidden" data-src="https://placehold.co/1200x900?text=Project+6" aria-label="View image 6">
+          <img loading="lazy" src="https://placehold.co/400x300?text=Project+6" class="w-full h-32 sm:h-40 object-cover transform group-hover:scale-105 transition" alt="Project 6" />
+        </button>
+        <button class="gallery-item group block rounded overflow-hidden" data-src="https://placehold.co/1200x900?text=Project+7" aria-label="View image 7">
+          <img loading="lazy" src="https://placehold.co/400x300?text=Project+7" class="w-full h-32 sm:h-40 object-cover transform group-hover:scale-105 transition" alt="Project 7" />
+        </button>
+        <button class="gallery-item group block rounded overflow-hidden" data-src="https://placehold.co/1200x900?text=Project+8" aria-label="View image 8">
+          <img loading="lazy" src="https://placehold.co/400x300?text=Project+8" class="w-full h-32 sm:h-40 object-cover transform group-hover:scale-105 transition" alt="Project 8" />
+        </button>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-8 sm:py-12 section-anim">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold">Contact</h2>
+        <p class="text-gray-400 text-sm sm:text-base mt-2 max-w-2xl">Tell us about your challenge. We'll get back with a proposed first step.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <form id="contactForm" class="space-y-4 p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6">
+          <div>
+            <label class="text-sm block mb-1">Name</label>
+            <input id="name" name="name" placeholder="Johne Armad" required type="text" class="w-full bg-black/40 border border-white/6 rounded px-3 py-2 text-white focus:outline-none" />
+          </div>
+          <div>
+            <label class="text-sm block mb-1">Email</label>
+            <input id="email" name="email" placeholder="jone@email.com" required type="email" class="w-full bg-black/40 border border-white/6 rounded px-3 py-2 text-white focus:outline-none" />
+          </div>
+          <div>
+            <label class="text-sm block mb-1">Message</label>
+            <textarea id="message" name="message" placeholder="Describe your challenge..." rows="5" required class="w-full bg-black/40 border border-white/6 rounded px-3 py-2 text-white focus:outline-none"></textarea>
+          </div>
+          <div class="flex items-center gap-3">
+            <button type="submit" class="bg-crewgreen text-black px-4 sm:px-5 py-2 rounded-md font-semibold hover:brightness-95 transition">Send via Email</button>
+            <span id="formMsg" class="text-sm text-gray-300"></span>
+          </div>
+        </form>
+        <div class="p-4 sm:p-6 rounded-xl bg-white/3 border border-white/6">
+          <h3 class="font-semibold text-base sm:text-lg">Contact Info</h3>
+          <p class="text-gray-300 mt-2 text-sm">Email: <a class="text-crewgreen" href="mailto:crew90@example.com">crew90@example.com</a></p>
+          <p class="text-gray-300 mt-2 text-sm">Location: Colombo, Sri Lanka</p>
+          <hr class="my-3 border-white/6" />
+          <p class="text-gray-300 text-sm">Prefer a quick chat? Use the email above and suggest a time — we'll arrange a brief discovery call.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-8 sm:mt-12 border-t border-white/6 bg-black/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 sm:w-12 h-10 sm:h-12 rounded-md flex items-center justify-center bg-gradient-to-br from-crewgreen/10 to-crewblue/8 border border-white/6">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 17L10 7L14 17L20 7" stroke="#00FF8C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm sm:text-base">CREW-90</div>
+            <div class="text-xs text-gray-400">Research-driven IT solutions</div>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm">We research organizational challenges and deliver engineering solutions that scale. Our current projects focus on automation and observability.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a class="p-2 rounded hover:bg-white/6" href="#" aria-label="twitter">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+              <path d="M20 7.5c-.6.3-1.2.5-1.8.6.6-.4 1-1 1.3-1.8-.6.4-1.3.6-2 .8-1.2-1.3-3.2-1.5-4.6-.4-1 .8-1.5 2.1-1.1 3.3-3-.2-5.6-1.6-7.4-3.9-.9 1.5-.5 3.4 1 4.4-.5 0-1-.2-1.4-.4 0 1.4 1 2.6 2.4 2.9-.5.1-1 .1-1.6.1.5 1.6 2 2.9 3.7 3-.9.8-2 1.3-3.2 1.3-.2 0-.4 0-.6-.0 1.2.8 2.6 1.3 4.2 1.3 6.4 0 9.9-5.3 9.9-9.9v-.5c.7-.5 1.3-1.1 1.7-1.8-.6.3-1.3.5-2 .6z" fill="white"/>
+            </svg>
+          </a>
+          <a class="p-2 rounded hover:bg-white/6" href="#" aria-label="linkedin">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+              <path d="M6 9h3v10H6zm1.5-5.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5zM11 9h2.9v1.4h.1c.4-.7 1.4-1.4 2.9-1.4 3.1 0 3.7 2 3.7 4.6V19h-3v-4.4c0-1-.0-2.2-1.4-2.2-1.4 0-1.6 1.1-1.6 2.1V19h-3V9z" fill="white"/>
             </svg>
           </a>
         </div>
-      </section>
-
-      <!-- 2. What We Do / Services Grid -->
-      <section
-        id="services"
-        class="py-20 md:py-32 px-4 border-t border-gray-900/50"
-      >
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-16">
-            <span
-              class="text-neon-green uppercase tracking-widest text-sm font-semibold"
-              >Core Capabilities</span
-            >
-            <h2 class="text-4xl md:text-5xl font-extrabold mt-3">
-              Solutions Engineered for
-              <span class="text-tech-blue">Impact</span>
-            </h2>
-          </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Service Card 1: Custom Software -->
-            <div
-              class="card-glow p-8 rounded-2xl bg-card-bg backdrop-blur-lg hover:border-neon-green transition duration-300"
-            >
-              <div class="p-3 inline-block rounded-full bg-neon-green/10 mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#32FF80"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-code-2"
-                >
-                  <path d="m18 16 4-4-4-4" />
-                  <path d="m6 8-4 4 4 4" />
-                  <path d="m14.5 4-5 16" />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-bold mb-3">
-                Custom Software Development
-              </h3>
-              <p class="text-gray-400">
-                Tailored applications built from the ground up to solve your
-                unique operational challenges and integrate perfectly with
-                existing infrastructure.
-              </p>
-            </div>
-
-            <!-- Service Card 2: Automation -->
-            <div
-              class="card-glow p-8 rounded-2xl bg-card-bg backdrop-blur-lg hover:border-neon-green transition duration-300"
-            >
-              <div class="p-3 inline-block rounded-full bg-tech-blue/10 mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#0066FF"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-zap"
-                >
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-bold mb-3">
-                Automation & Industry Solutions
-              </h3>
-              <p class="text-gray-400">
-                Leveraging AI/ML and robust logic to automate processes,
-                minimize human error, and achieve true Industry 4.0 standards.
-              </p>
-            </div>
-
-            <!-- Service Card 3: Web & Mobile -->
-            <div
-              class="card-glow p-8 rounded-2xl bg-card-bg backdrop-blur-lg hover:border-neon-green transition duration-300"
-            >
-              <div class="p-3 inline-block rounded-full bg-neon-green/10 mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#32FF80"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-layout-grid"
-                >
-                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                  <line x1="3" x2="21" y1="12" y2="12" />
-                  <line x1="12" x2="12" y1="3" y2="21" />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-bold mb-3">
-                Web & Mobile App Development
-              </h3>
-              <p class="text-gray-400">
-                High-speed, scalable web platforms and native mobile
-                applications engineered for exceptional field performance and
-                accessibility.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 3. Why Choose Us / Values Section -->
-      <section
-        id="values"
-        class="py-20 md:py-32 px-4 border-t border-gray-900/50 bg-gray-900/10"
-      >
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-16">
-            <span
-              class="text-tech-blue uppercase tracking-widest text-sm font-semibold"
-              >Our DNA</span
-            >
-            <h2 class="text-4xl md:text-5xl font-extrabold mt-3">
-              Driven by <span class="text-neon-green">Core Principles</span>
-            </h2>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-8">
-            <!-- Value 1: Innovation -->
-            <div
-              class="text-center p-8 rounded-xl border border-tech-blue/30 bg-dark-bg/50"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#32FF80"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-lightbulb mx-auto mb-4"
-              >
-                <path d="M15 14c.2-1 .2-2 0-3 0 1 0 2-.2 3" />
-                <path d="M15 14a2 2 0 1 1-2-2 2 2 0 0 1 2 2z" />
-                <path
-                  d="M16 4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2c0 2 0 4 0 6s0 4 0 6c0 1 0 2-.5 3"
-                />
-              </svg>
-              <h3 class="text-2xl font-bold text-white mb-2">Innovation</h3>
-              <p class="text-gray-400">
-                We continuously explore and apply the latest technologies to
-                ensure your solutions are always future-proof and competitive.
-              </p>
-            </div>
-            <!-- Value 2: Reliability -->
-            <div
-              class="text-center p-8 rounded-xl border border-neon-green/30 bg-dark-bg/50"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#0066FF"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-shield-check mx-auto mb-4"
-              >
-                <path
-                  d="M20 13c0 5-2 9-5 11-3-2-5-6-5-11V7c0-2 1-3 3-3h4c2 0 3 1 3 3z"
-                />
-                <path d="m9 12 2 2 4-4" />
-              </svg>
-              <h3 class="text-2xl font-bold text-white mb-2">Reliability</h3>
-              <p class="text-gray-400">
-                Our code is rigorous and tested. We guarantee maximum uptime and
-                scalable performance under any industrial load.
-              </p>
-            </div>
-            <!-- Value 3: Unity (Teamwork) -->
-            <div
-              class="text-center p-8 rounded-xl border border-tech-blue/30 bg-dark-bg/50"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#32FF80"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-users-2 mx-auto mb-4"
-              >
-                <path d="M14 19a6 6 0 0 0-12 0" />
-                <circle cx="8" cy="10" r="4" />
-                <circle cx="17" cy="10" r="4" />
-                <path d="M21 19a6 6 0 0 0-3-10" />
-              </svg>
-              <h3 class="text-2xl font-bold text-white mb-2">Unity</h3>
-              <p class="text-gray-400">
-                We work in close partnership with your team, ensuring
-                transparency and alignment from initial concept to final
-                deployment.
-              </p>
-            </div>
-
-            <!-- outbox thinking -->
-
-            <div
-              class="text-center p-8 rounded-xl border border-tech-blue/30 bg-dark-bg/50"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#0066FF"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-box mx-auto mb-4"
-              >
-                <path
-                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"
-                />
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                <line x1="12" y1="22.08" x2="12" y2="12" />
-              </svg>
-              <h3 class="text-2xl font-bold text-white mb-2">
-                Outbox Thinking
-              </h3>
-              <p class="text-gray-400">
-                We challenge conventional boundaries by designing solutions that
-                go beyond expectations-where creativity meets strategy and
-                innovation becomes impact.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 4. Portfolio or Featured Projects Section -->
-      <section
-        id="projects"
-        class="py-20 md:py-32 px-4 border-t border-gray-900/50"
-      >
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-16">
-            <span
-              class="text-neon-green uppercase tracking-widest text-sm font-semibold"
-              >Case Studies</span
-            >
-            <h2 class="text-4xl md:text-5xl font-extrabold mt-3">
-              Featured <span class="text-tech-blue">Projects</span>
-            </h2>
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-12">
-            <!-- Project Placeholder 1 -->
-            <div
-              class="p-6 rounded-2xl bg-card-bg/50 card-glow border-tech-blue/20"
-            >
-              <div
-                class="h-64 bg-gray-800 rounded-lg flex items-center justify-center mb-4 border border-tech-blue/50"
-              >
-                <span class="text-xl text-gray-400"
-                  >Project Image Placeholder</span
-                >
-              </div>
-              <h3 class="text-3xl font-bold mb-2">
-                Logistics Control System V3
-              </h3>
-              <p class="text-gray-400 mb-4">
-                A custom ERP system for real-time fleet tracking and dynamic
-                route optimization, resulting in a 25% reduction in operational
-                costs.
-              </p>
-              <a
-                href="#"
-                class="text-neon-green hover:underline font-semibold flex items-center"
-              >
-                View Case Study
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-external-link ml-1"
-                >
-                  <path d="M15 3h6v6" />
-                  <path d="M10 14L21 3" />
-                  <path
-                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                  />
-                </svg>
-              </a>
-            </div>
-            <!-- Project Placeholder 2 -->
-            <div
-              class="p-6 rounded-2xl bg-card-bg/50 card-glow border-neon-green/20"
-            >
-              <div
-                class="h-64 bg-gray-800 rounded-lg flex items-center justify-center mb-4 border border-neon-green/50"
-              >
-                <span class="text-xl text-gray-400"
-                  >Project Image Placeholder</span
-                >
-              </div>
-              <h3 class="text-3xl font-bold mb-2">Automated QA Platform</h3>
-              <p class="text-gray-400 mb-4">
-                An integrated vision-based platform that conducts real-time
-                quality assurance checks on high-speed assembly lines with 99.9%
-                accuracy.
-              </p>
-              <a
-                href="#"
-                class="text-tech-blue hover:underline font-semibold flex items-center"
-              >
-                View Case Study
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-external-link ml-1"
-                >
-                  <path d="M15 3h6v6" />
-                  <path d="M10 14L21 3" />
-                  <path
-                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. Contact Section / Get Started Form -->
-      <section
-        id="contact"
-        class="py-20 md:py-32 px-4 border-t border-gray-900/50"
-      >
-        <div class="max-w-4xl mx-auto text-center">
-          <span
-            class="text-tech-blue uppercase tracking-widest text-sm font-semibold"
-            >Let's Build</span
-          >
-          <h2 class="text-4xl md:text-5xl font-extrabold mt-3 mb-8">
-            Ready to Start Your
-            <span class="text-neon-green">Next Project?</span>
-          </h2>
-          <p class="text-xl text-gray-400 mb-12">
-            Tell us about your operational challenges and we'll craft a tailored
-            software solution that delivers measurable results.
-          </p>
-
-          <div
-            class="bg-card-bg/50 p-8 md:p-12 rounded-2xl border-2 border-tech-blue/20"
-          >
-            <form
-              class="space-y-6 text-left"
-              action="https://formspree.io/f/xovkyypj"
-              method="POST"
-            >
-              <div>
-                <label
-                  for="name"
-                  class="block text-sm font-medium text-gray-300 mb-2"
-                  >Your Name / Company</label
-                >
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-tech-blue/50 focus:border-neon-green focus:ring-1 focus:ring-neon-green/50 outline-none transition duration-200"
-                  placeholder="Acme Inc."
-                />
-              </div>
-              <div>
-                <label
-                  for="email"
-                  class="block text-sm font-medium text-gray-300 mb-2"
-                  >Work Email</label
-                >
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-tech-blue/50 focus:border-neon-green focus:ring-1 focus:ring-neon-green/50 outline-none transition duration-200"
-                  placeholder="contact@acme.com"
-                />
-              </div>
-              <div>
-                <label
-                  for="message"
-                  class="block text-sm font-medium text-gray-300 mb-2"
-                  >How Can CREW-90 Help?</label
-                >
-                <textarea
-                  id="message"
-                  rows="4"
-                  name="message"
-                  class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-tech-blue/50 focus:border-neon-green focus:ring-1 focus:ring-neon-green/50 outline-none transition duration-200"
-                  placeholder="I need a bespoke automation tool for my manufacturing plant..."
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                class="w-full py-4 text-lg font-bold rounded-xl bg-tech-blue text-white transition duration-300 hover:bg-tech-blue/80 hover:shadow-[0_0_20px_rgba(0,102,255,0.7)] shadow-tech-blue/50"
-              >
-                Send Request
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-12 px-4 border-t border-gray-900/50 bg-gray-900/10">
-      <div
-        class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-sm"
-      >
-        <!-- Logo Column -->
-        <div class="col-span-2 md:col-span-1">
-          <a href="index.html" class="text-2xl font-extrabold tracking-tight">
-            <span class="text-white">CREW-</span
-            ><span class="text-neon-green">90</span>
-          </a>
-          <p class="text-gray-500 mt-2">
-            Engineering the digital infrastructure of tomorrow.
-          </p>
-        </div>
-        <!-- Links Column 1 -->
-        <div>
-          <h4 class="font-bold text-white mb-3">Company</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li>
-              <a
-                href="about.html"
-                class="hover:text-neon-green transition duration-200"
-                >About Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="#values"
-                class="hover:text-neon-green transition duration-200"
-                >Our Values</a
-              >
-            </li>
-            <li>
-              <a href="#" class="hover:text-neon-green transition duration-200"
-                >Careers</a
-              >
-            </li>
-          </ul>
-        </div>
-        <!-- Links Column 2 -->
-        <div>
-          <h4 class="font-bold text-white mb-3">Services</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li>
-              <a
-                href="#services"
-                class="hover:text-neon-green transition duration-200"
-                >Custom Software</a
-              >
-            </li>
-            <li>
-              <a
-                href="#services"
-                class="hover:text-neon-green transition duration-200"
-                >Automation</a
-              >
-            </li>
-            <li>
-              <a
-                href="#services"
-                class="hover:text-neon-green transition duration-200"
-                >Mobile Apps</a
-              >
-            </li>
-          </ul>
-        </div>
-        <!-- Contact Info -->
-        <div>
-          <h4 class="font-bold text-white mb-3">Connect</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li>
-              <a
-                href="#contact"
-                class="hover:text-neon-green transition duration-200"
-                >Get a Quote</a
-              >
-            </li>
-            <li>
-              <a href="#" class="hover:text-neon-green transition duration-200"
-                >Press Kit</a
-              >
-            </li>
-            <li>
-              <a href="#" class="hover:text-neon-green transition duration-200"
-                >info@crew90.com</a
-              >
-            </li>
-          </ul>
-          <!-- Social Media Links -->
-          <div class="mt-4 flex space-x-4">
-            <a
-              href="https://linkedin.com/company/crew-90"
-              target="_blank"
-              class="text-gray-400 hover:text-neon-green transition duration-300"
-              aria-label="LinkedIn"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-linkedin"
-              >
-                <path
-                  d="M16 8a6 6 0 0 0-6 6v7h-4v-7a6 6 0 0 1 6-6 6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2z"
-                />
-                <rect width="4" height="12" x="2" y="9" />
-                <circle cx="4" cy="4" r="2" />
-              </svg>
-            </a>
-          </div>
+      </div>
+      <div>
+        <div class="font-semibold mb-3 text-sm sm:text-base">Quick Links</div>
+        <ul class="text-sm text-gray-300 space-y-2">
+          <li><a href="#hero" class="hover:text-crewgreen">Home</a></li>
+          <li><a href="#about" class="hover:text-crewgreen">About</a></li>
+          <li><a href="#services" class="hover:text-crewgreen">Services</a></li>
+          <li><a href="#cases" class="hover:text-crewgreen">Research</a></li>
+          <li><a href="#contact" class="hover:text-crewgreen">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold mb-3 text-sm sm:text-base">Contact</div>
+        <p class="text-sm text-gray-300">Email: <a class="text-crewgreen" href="mailto:crew90@example.com">crew90@example.com</a></p>
+        <p class="text-sm text-gray-300 mt-2">Location: Colombo, Sri Lanka</p>
+        <div class="mt-4">
+          <form id="footerSubscribe" class="flex gap-2">
+            <input id="subEmail" type="email" placeholder="your@email.com" class="flex-1 bg-black/40 border border-white/6 rounded px-3 py-2 text-sm text-white focus:outline-none" />
+            <button type="submit" class="px-3 sm:px-4 py-2 rounded-md bg-crewblue font-medium text-white">Subscribe</button>
+          </form>
+          <p id="subMsg" class="text-xs text-gray-400 mt-2"></p>
         </div>
       </div>
-
-      <div
-        class="mt-12 pt-8 border-t border-gray-900/50 text-center text-gray-500 text-xs"
-      >
-        &copy; 2024 CREW-90. All Rights Reserved. | Designed with Unity and
-        Innovation.
+    </div>
+    <div class="border-t border-white/6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-xs text-gray-400 flex flex-col md:flex-row justify-between">
+        <div>© CREW-90 2025 • All rights reserved</div>
+        <div class="mt-2 md:mt-0">Built with care · <a class="text-crewgreen" href="mailto:crew90@example.com">crew90@example.com</a></div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <script>
-      // --- Mobile Menu Toggle Logic (New) ---
-      const mobileMenuButton = document.getElementById("mobile-menu-button");
-      const mobileMenu = document.getElementById("mobile-menu");
+  <!-- Lightbox modal -->
+  <div id="lightbox" class="fixed inset-0 hidden items-center justify-center bg-black/85 z-50 p-4">
+    <button id="lightboxClose" class="absolute top-4 sm:top-6 right-4 sm:right-6 p-2 rounded bg-white/5 text-white hover:bg-white/8">Close</button>
+    <img id="lightboxImage" src="" alt="Gallery image" class="max-h-[85vh] max-w-[90vw] rounded-lg shadow-lg" />
+  </div>
 
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener("click", () => {
-          // Toggles the 'hidden' class to show/hide the menu
-          mobileMenu.classList.toggle("hidden");
-        });
-
-        // Close menu when an internal link is clicked (for smooth scrolling)
-        mobileMenu.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => {
-            mobileMenu.classList.add("hidden");
-          });
-        });
-      }
-      // --- End Mobile Menu Toggle Logic ---
-
-      // Smooth Scrolling Script for internal links (like #contact)
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          // Only prevent default for internal links within the same page
-          if (this.getAttribute("href").length > 1) {
-            e.preventDefault();
-            const targetId = this.getAttribute("href");
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-              window.scrollTo({
-                top: targetElement.offsetTop - 80, // Adjust for fixed header height
-                behavior: "smooth",
-              });
-            }
-          }
-        });
-      });
-
-      // Initialize Lucide Icons
-      lucide.createIcons();
-    </script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
